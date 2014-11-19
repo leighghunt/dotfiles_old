@@ -162,3 +162,5 @@ if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
 Bundle 'rking/ag.vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
