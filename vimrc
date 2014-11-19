@@ -13,6 +13,7 @@ set history=50
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
+set hlsearch
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 
@@ -83,7 +84,12 @@ if executable('ag')
 endif
 
 " Color scheme
-colorscheme github
+syntax enable
+" set background=light
+
+set background=dark
+
+colorscheme solarized
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
