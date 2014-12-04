@@ -14,6 +14,7 @@ set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set hlsearch
+set ic
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 
@@ -89,13 +90,13 @@ syntax enable
 
 set background=dark
 
-colorscheme solarized
+"colorscheme solarized
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
 " Make it obvious where 80 characters is
 set textwidth=80
-set colorcolumn=+1
+"set colorcolumn=+1
 
 " Numbers
 set number
@@ -132,9 +133,30 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " vim-rspec mappings
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
+"nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
+"nnoremap <Leader>s :call RunNearestSpec()<CR>
+"nnoremap <Leader>l :call RunLastSpec()<CR>
+
+" https://github.com/liangxianzhe/oh-my-vim/blob/master/packages/git.vimrc
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>go :Gread<CR>
+nnoremap <Leader>gR :Gremove<CR>
+nnoremap <Leader>gm :Gmove<Space>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gB :Gbrowse<CR>
+nnoremap <Leader>gp :Git! push<CR>
+nnoremap <Leader>gP :Git! pull<CR>
+nnoremap <Leader>gi :Git!<Space>
+nnoremap <Leader>ge :Gedit<CR>
+nnoremap <Leader>gE :Gedit<Space>
+nnoremap <Leader>gl :exe "silent Glog <Bar> Unite -no-quit
+            \ quickfix"<CR>:redraw!<CR>
+nnoremap <Leader>gL :exe "silent Glog -- <Bar> Unite -no-quit
+            \ quickfix"<CR>:redraw!<CR>
+nnoremap <Leader>gt :!tig<CR>:redraw!<CR>
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<space>
@@ -167,6 +189,3 @@ set diffopt+=vertical
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
-Bundle 'rking/ag.vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
