@@ -137,8 +137,19 @@ nnoremap <Down> :echoe "Use j"<CR>
 "nnoremap <Leader>s :call RunNearestSpec()<CR>
 "nnoremap <Leader>l :call RunLastSpec()<CR>
 
+nnoremap <F5> :NERDTree<CR>
+
+" Use CTRL-S for saving, also in Insert mode
+"noremap <C-S> :update<CR>
+"vnoremap <C-S> <C-C>:update<CR>
+"inoremap <C-S> <C-O>:update<CR>
+
+
 " https://github.com/liangxianzhe/oh-my-vim/blob/master/packages/git.vimrc
 nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <leader>gss :GitSessionSave<cr>
+nnoremap <leader>gsl :GitSessionLoad<cr>
+nnoremap <leader>gsd :GitSessionDelete<cr>
 nnoremap <Leader>gw :Gwrite<CR>
 nnoremap <Leader>go :Gread<CR>
 nnoremap <Leader>gR :Gremove<CR>

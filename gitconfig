@@ -23,6 +23,7 @@
   autocrlf = input
 [merge]
   ff = only
+	tool = vimdiff
 [commit]
   template = ~/.gitmessage
 [fetch]
@@ -38,3 +39,5 @@
 	email = leigh@venari.co.nz
 [github]
 	user = leighghunt
+[diff]
+	tool = vimdiff
