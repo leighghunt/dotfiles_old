@@ -19,6 +19,8 @@
   st = status
   up = !git fetch origin && git rebase origin/master
   summary = "!source ~/.githelpers && weekly_summary"
+  prev = checkout HEAD^1
+  next = "!sh -c 'git log --reverse --pretty=%H master | awk \"/$(git rev-parse HEAD)/{getline;print}\" | xargs git checkout'"
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
