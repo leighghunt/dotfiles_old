@@ -1,5 +1,6 @@
 function weekly_summary() {
-  LAST_WEEK=$(date -v-7d +%m/%d)
+  LAST_WEEK=$(date -v-7d +%d/%m)
+  LAST_MONTH=$(date -v-1m +%d/%m)
 
   STATS=$(
     git log --since=1.week --oneline |
@@ -11,6 +12,11 @@ function weekly_summary() {
   FEATURES=$(
     git log --since=1.week --oneline |
     egrep "Merge (pull|branch) "
+  )
+
+  FIXES=$(
+    git log --since=1.month --oneline |
+    egrep "Merge (fix|resolve) "
   )
 
   FEATURES_COUNT=$(
@@ -27,4 +33,8 @@ function weekly_summary() {
   echo "Features ($FEATURES_COUNT)"
   echo "-------------"
   echo "$FEATURES"
+  echo
+  echo "FIXES ($LAST_MONTH - Today)"
+  echo "--------------------------"
+  echo "$FIXES"
 }
