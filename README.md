@@ -1,5 +1,5 @@
-thoughtbot dotfiles
-===================
+My dotfiles, forked from thoughtbot
+===================================
 
 Requirements
 ------------
@@ -13,7 +13,7 @@ Install
 
 Clone onto your laptop:
 
-    git clone git://github.com/thoughtbot/dotfiles.git
+    git clone git://github.com/leighghunt/dotfiles.git
 
 (Or, [fork and keep your fork
 updated](http://robots.thoughtbot.com/keeping-a-github-fork-updated)).
@@ -22,6 +22,12 @@ Install [rcm](https://github.com/thoughtbot/rcm):
 
     brew tap thoughtbot/formulae
     brew install rcm
+    
+Or on Ubuntu (only LTS releases):
+    
+    sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
+    sudo apt-get update
+    sudo apt-get install rcm
 
 Install the dotfiles:
 
