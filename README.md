@@ -28,6 +28,11 @@ Or on Ubuntu (only LTS releases):
     sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
     sudo apt-get update
     sudo apt-get install rcm
+    
+Install vundle:
+
+    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall 
 
 Install the dotfiles:
 
