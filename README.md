@@ -35,6 +35,21 @@ Install vundle:
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall 
 
+
+vim -> nvim
+
+1. To start the transition, create your init.vim (user config) file:
+
+    :call mkdir(stdpath('config'), 'p')
+    :exe 'edit '.stdpath('config').'/init.vim'
+
+2. Add these contents to the file:
+
+    set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    let &packpath = &runtimepath
+    source ~/.vimrc
+
+
 Install the dotfiles:
 
     env RCRC=$HOME/dotfiles/rcrc rcup
