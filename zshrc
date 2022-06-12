@@ -41,3 +41,7 @@ _load_settings "$HOME/.zsh/configs"
 [[ -f ~/.aliases ]] && source ~/.aliases
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
