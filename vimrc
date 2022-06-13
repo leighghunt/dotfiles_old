@@ -123,7 +123,7 @@ set textwidth=80
 " Numbers
 set number
 set numberwidth=5
-
+set relativenumber
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
@@ -215,7 +215,7 @@ nnoremap ]r :ALENextWrap<CR>
 nnoremap [r :ALEPreviousWrap<CR>
 
 " Map Ctrl + p to open fuzzy find (FZF)
-nnoremap <c-p> :Files<cr>
+nnoremap <c-p> :GFiles<cr>
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
@@ -231,3 +231,5 @@ set diffopt+=vertical
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+let g:OmniSharp_server_use_net6 = 1
