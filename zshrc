@@ -45,3 +45,7 @@ _load_settings "$HOME/.zsh/configs"
 if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+source $ZSH/oh-my-zsh.sh

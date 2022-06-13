@@ -41,8 +41,6 @@
 [github]
 	user = leighghunt
 [diff]
-	tool = vimdiff
-[diff]
   colorMoved = zebra
 [pull]
 	rebase = false
