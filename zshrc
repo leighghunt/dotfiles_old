@@ -49,3 +49,10 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/Users/leighhunt/.cargo/bin:$PATH"
+export PATH=/Users/leighhunt/.local/bin:$PATH
+
+alias flakyssh='ssh -o ConnectTimeout=60 -o ConnectionAttempts=60'
+alias flakyscp='scp -o ConnectTimeout=60 -o ConnectionAttempts=60'
+

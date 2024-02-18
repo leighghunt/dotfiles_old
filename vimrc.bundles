@@ -72,10 +72,13 @@ Plug 'tpope/vim-surround'
 " Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/tComment'
 Plug 'OmniSharp/omnisharp-vim'
-"Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'
 "Plug 'kabouzeid/nvim-lspinstall'
 "Plug 'ahmedkhalf/lsp-rooter.nvim'
-Plug 'mhinz/vim-startify'
+"Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'puremourning/vimspector'
 
 if g:has_async
   Plug 'dense-analysis/ale'
@@ -86,3 +89,5 @@ if filereadable(expand("~/.vimrc.bundles.local"))
 endif
 
 call plug#end()
+
+lua require'lspconfig'.csharp_ls.setup{}
