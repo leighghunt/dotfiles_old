@@ -18,6 +18,8 @@ return {
       "vim",
       "yaml",
     },
+    highlight = { enable = true },
+    indent = { enable = true },
   },
 }
 
