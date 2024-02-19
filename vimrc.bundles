@@ -90,4 +90,3 @@ endif
 
 call plug#end()
 
-lua require'lspconfig'.csharp_ls.setup{}
