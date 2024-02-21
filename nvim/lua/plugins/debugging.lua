@@ -24,73 +24,71 @@ return {
         args = {'--interpreter=vscode'}
       }
 
-      dap.configurations.cs = {
+      
+      -- https://github.com/mfussenegger/nvim-dap/wiki/Cookbook#making-debugging-net-easier
+      vim.g.dotnet_build_project = function()
+        local default_path = vim.fn.getcwd() .. '/'
+        if vim.g['dotnet_last_proj_path'] ~= nil then
+          default_path = vim.g['dotnet_last_proj_path']
+        end
+        local path = vim.fn.input('Path to your *proj file', default_path, 'file')
+        vim.g['dotnet_last_proj_path'] = path
+        local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
+        print('')
+        print('Cmd to execute: ' .. cmd)
+        local f = os.execute(cmd)
+        if f == 0 then
+          print('\nBuild: ✔️ ')
+        else
+          print('\nBuild: ❌ (code: ' .. f .. ')')
+        end
+      end
+
+      vim.g.dotnet_get_dll_path = function()
+        local request = function()
+          return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+          --return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net8.0/', 'file')
+        end
+
+        if vim.g['dotnet_last_dll_path'] == nil then
+          vim.g['dotnet_last_dll_path'] = request()
+        else
+          if vim.fn.confirm('Do you want to change the path to dll?\n' .. vim.g['dotnet_last_dll_path'], '&yes\n&no', 2) == 1 then
+            vim.g['dotnet_last_dll_path'] = request()
+          end
+        end
+
+        return vim.g['dotnet_last_dll_path']
+      end
+
+      local config = {
         {
           type = "coreclr",
           name = "launch - netcoredbg",
           request = "launch",
           program = function()
-            return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net8.0/', 'file')
+            if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
+              vim.g.dotnet_build_project()
+            end
+            return vim.g.dotnet_get_dll_path()
           end,
         },
       }
 
---      local dap = require("dap")
-      --dap.adapters.coreclr = {
-      --  type = "executable",
-      --  command = "netcoredbg",
-      --  args = { "--interpreter=vscode" },
-      --}
-
-      --dap.configurations.cs = {
-      --  {
-      --    type = "coreclr",
-      --    name = "launch - netcoredbg",
-      --    request = "launch",
-      --    env = "ASPNETCORE_ENVIRONMENT=Development",
-      --    args = {
-      --      "/p:EnvironmentName=Development", -- this is a msbuild jk
-      --      --  this is set via environment variable ASPNETCORE_ENVIRONMENT=Development
-      --      "--urls=http://localhost:5002",
-      --      "--environment=Development",
-      --    },
-      --    program = function()
-      --      -- return vim.fn.getcwd() .. "/bin/Debug/net8.0/FlareHotspotServer.dll"
-      --      local files = ls_dir(get_root_dir() .. "/bin/Debug/")
-      --      if #files == 1 then
-      --        local dotnet_dir = get_root_dir() .. "/bin/Debug/" .. files[1]
-      --        files = ls_dir(dotnet_dir)
-      --        for _, file in ipairs(files) do
-      --          if file:match(".*%.dll") then
-      --            return dotnet_dir .. "/" .. file
-      --          end
-      --        end
-      --      end
-      --      -- return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-      --      return vim.fn.input({
-      --        prompt = "Path to dll",
-      --        default = get_root_dir() .. "/bin/Debug/",
-      --      })
-      --    end,
-      --  },
-      --}
-
+      dap.configurations.cs = config
+      dap.configurations.fsharp = config
 
       vim.keymap.set('n', '<F5>', dap.continue, {})
       vim.keymap.set('n', '<Leader>dt', dap.toggle_breakpoint, {desc="Toggle breakpoint"})
-      --vim.keymap.set('n', '<Leader>B', dap.set_breakpoint, {})
-      --vim.keymap.set('n', '<Leader>lp', dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')), {})
       vim.keymap.set('n', '<Leader>dr', dap.repl.open, {desc="Open REPL"})
     end,
   },
-{
-  "jay-babu/mason-nvim-dap.nvim",
-  opts = {
-    ensure_installed = {
---      "python",
---      "netcoredbg",
-      "coreclr",
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      ensure_installed = {
+        "coreclr",
+      },
     },
-  },
-}
+  }
 }
