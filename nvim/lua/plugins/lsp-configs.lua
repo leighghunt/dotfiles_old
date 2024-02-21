@@ -25,6 +25,13 @@ return {
       local lspconfig = require("lspconfig")
       --lspconfig.omnisharp.setup({})
       --lspconfig.c_sharp.setup({})
+      lspconfig.lua_ls.setup({})
+
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
+      vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
+
+
       lspconfig.csharp_ls.setup({})
     end,
   },
