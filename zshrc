@@ -55,4 +55,5 @@ export PATH=/Users/leighhunt/.local/bin:$PATH
 
 alias flakyssh='ssh -o ConnectTimeout=60 -o ConnectionAttempts=60'
 alias flakyscp='scp -o ConnectTimeout=60 -o ConnectionAttempts=60'
+eval "$(starship init zsh)"
 
