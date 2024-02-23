@@ -46,8 +46,8 @@ return {
 
       vim.g.dotnet_get_dll_path = function()
         local request = function()
-          return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-          --return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net8.0/', 'file')
+          --return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+          return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net8.0/', 'file')
         end
 
         if vim.g['dotnet_last_dll_path'] == nil then
@@ -76,7 +76,7 @@ return {
       }
 
       dap.configurations.cs = config
-      dap.configurations.fsharp = config
+      --dap.configurations.fsharp = config
 
       vim.keymap.set('n', '<F5>', dap.continue, {})
       vim.keymap.set('n', '<Leader>dt', dap.toggle_breakpoint, {desc="Toggle breakpoint"})
