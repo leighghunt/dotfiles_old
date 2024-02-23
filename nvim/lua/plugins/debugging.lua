@@ -24,60 +24,6 @@ return {
         args = {'--interpreter=vscode'}
       }
 
-      
-      -- https://github.com/mfussenegger/nvim-dap/wiki/Cookbook#making-debugging-net-easier
-      vim.g.dotnet_build_project = function()
-        local default_path = vim.fn.getcwd() .. '/'
-        if vim.g['dotnet_last_proj_path'] ~= nil then
-          default_path = vim.g['dotnet_last_proj_path']
-        end
-        local path = vim.fn.input('Path to your *proj file', default_path, 'file')
-        vim.g['dotnet_last_proj_path'] = path
-        local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
-        print('')
-        print('Cmd to execute: ' .. cmd)
-        local f = os.execute(cmd)
-        if f == 0 then
-          print('\nBuild: ✔️ ')
-        else
-          print('\nBuild: ❌ (code: ' .. f .. ')')
-        end
-      end
-
-      vim.g.dotnet_get_dll_path = function()
-        local request = function()
-          --return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-          return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net8.0/', 'file')
-        end
-
-        if vim.g['dotnet_last_dll_path'] == nil then
-          vim.g['dotnet_last_dll_path'] = request()
-        else
-          if vim.fn.confirm('Do you want to change the path to dll?\n' .. vim.g['dotnet_last_dll_path'], '&yes\n&no', 2) == 1 then
-            vim.g['dotnet_last_dll_path'] = request()
-          end
-        end
-
-        return vim.g['dotnet_last_dll_path']
-      end
-
-      local config = {
-        {
-          type = "coreclr",
-          name = "launch - netcoredbg",
-          request = "launch",
-          program = function()
-            if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-              vim.g.dotnet_build_project()
-            end
-            return vim.g.dotnet_get_dll_path()
-          end,
-        },
-      }
-
-      dap.configurations.cs = config
-      --dap.configurations.fsharp = config
-
       vim.keymap.set('n', '<F5>', dap.continue, {})
       vim.keymap.set('n', '<Leader>dt', dap.toggle_breakpoint, {desc="Toggle breakpoint"})
       vim.keymap.set('n', '<Leader>dr', dap.repl.open, {desc="Open REPL"})
@@ -90,5 +36,50 @@ return {
         "coreclr",
       },
     },
-  }
+  },
+  {
+    'nicholasmata/nvim-dap-cs', dependencies = { 'mfussenegger/nvim-dap' },
+
+    config = function()
+      require('dap-cs').setup(
+        -- Additional dap configurations can be added.
+        -- dap_configurations accepts a list of tables where each entry
+        -- represents a dap configuration. For more details do:
+        -- :help dap-configuration
+        dap_configurations == {
+          {
+            -- Must be "coreclr" or it will be ignored by the plugin
+            type = "coreclr",
+            name = "Attach remote",
+            mode = "remote",
+            request = "attach",
+          },
+        },
+        netcoredbg == {
+          -- the path to the executable netcoredbg which will be used for debugging.
+          -- by default, this is the "netcoredbg" executable on your PATH.
+          path = "netcoredbg"
+        }
+      )
+    end
+  },
+  -- { -- This plugin
+  --   "Zeioth/compiler.nvim",
+  --   cmd = {"CompilerOpen", "CompilerToggleResults", "CompilerRedo"},
+  --   dependencies = { "stevearc/overseer.nvim" },
+  --   opts = {},
+  -- },
+  -- { -- The task runner we use
+  --   "stevearc/overseer.nvim",
+  --   commit = "68a2d344cea4a2e11acfb5690dc8ecd1a1ec0ce0",
+  --   cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+  --   opts = {
+  --     task_list = {
+  --       direction = "bottom",
+  --       min_height = 25,
+  --       max_height = 25,
+  --       default_detail = 1
+  --     },
+  --   },
+  -- },
 }
