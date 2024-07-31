@@ -44,3 +44,5 @@
   colorMoved = zebra
 [pull]
 	rebase = false
+[maintenance]
+	repo = /Users/leighhunt/dev/venari/timelapse
